@@ -5,12 +5,14 @@ import sunny from "./images/sunny.jpg";
 import rainy from "./images/rainy.jpg";
 import cloudy from "./images/cloudy.jpg";
 import stormy from "./images/stormy.jpg";
+import defaultBg from "./images/default.jpg"; // Import default background
 
 function App() {
     const API_KEY = process.env.REACT_APP_API_KEY; // Replace with your OpenWeather API key
-    const [city, setCity] = useState("Delhi"); // Default city
+    const [city, setCity] = useState(""); // Default city
     const [weather, setWeather] = useState(null); // Default weather
     const [showCities, setShowCities] = useState(false);
+    const [loading, setLoading] = useState(false); // Loading state
     const cityListRef = useRef(null);
 
     // Define background images for different weather conditions
@@ -50,6 +52,7 @@ function App() {
 
     // Function to fetch weather data from API
     const fetchWeather = async (searchCity) => {
+        setLoading(true);
         try {
             const response = await axios.get(
                 `https://api.openweathermap.org/data/2.5/weather?q=${searchCity}&appid=${API_KEY}&units=metric`
@@ -58,6 +61,7 @@ function App() {
         } catch (error) {
             alert("Error fetching weather data. Please try again.");
         }
+        setLoading(false);
     };
 
     const handleSearch = (e) => {
@@ -85,15 +89,18 @@ function App() {
         };
     }, [cityListRef]);
 
+    const background = weather ? weatherBackgrounds[weather.weather[0].main] : defaultBg;
+
     return (
         <div
             className="app"
             style={{
-                backgroundImage: `url(${weatherBackgrounds[weather?.weather[0]?.main]})`,
+                backgroundImage: `url(${background})`,
             }}
         >
             <div className="weather-container">
-                {!weather && <h1 className="main-title">Weather App</h1>}
+                {!weather && !loading && <h1 className="main-title">Weather App</h1>}
+                {loading && <div className="loader"></div>}
                 <div className="search-container" ref={cityListRef}>
                     <input
                         type="text"
@@ -114,7 +121,7 @@ function App() {
                         </div>
                     )}
                 </div>
-                {weather && (
+                {weather && !loading && (
                     <div className="weather-info">
                         <h2>{weather.name}</h2>
                         <div className="weather-details">
