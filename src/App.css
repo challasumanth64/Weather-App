@@ -1,38 +1,121 @@
-.App {
-  text-align: center;
+.app {
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    overflow: hidden; /* Hide scrollbars from the root element */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.weather-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px; /* Increased max-width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative; /* Needed for absolute positioning of children */
+    max-height: 90vh; /* Limit height to fit within viewport */
+    display: flex;
+    flex-direction: column;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative; /* For city list positioning */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.search-input {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    margin-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.city-list-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.city-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 5px;
+    color: #333;
+    z-index: 10;
+    text-align: left;
+}
+
+.city-item {
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.city-item:hover {
+    background-color: #e0e0e0;
+}
+
+.weather-info {
+    flex-grow: 1; /* Allow this section to grow */
+    overflow-y: auto; /* Add scroll if content overflows */
+}
+
+.weather-info h2 {
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.temperature {
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 1.5em;
+    text-transform: capitalize;
+}
+
+.additional-info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.1em;
+}
+
+.main-title {
+    font-size: 4em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
